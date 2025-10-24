@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Habit Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Habit Tracker</h1>
+    <nav>
+      <button id="homeBtn">🏠 Головна</button>
+      <button id="addBtn">➕ Додати звичку</button>
+      <button id="listBtn">📋 Мої звички</button>
+      <button id="statsBtn">📈 Статистика</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ГОЛОВНА -->
+    <section id="homeSection" class="active">
+      <h2>Вітаю тебе у трекері звичок!</h2>
+      <p>
+  "Habit Tracker" - це простий вебдодаток, який допоможе тобі створювати, відстежувати 
+  та підтримувати свої щоденні звички. <br>
+  Додавай нові цілі, позначай виконані завдання і спостерігай, 
+  як зростає твій прогрес! 💪 <br>
+</p>
+
+    <!-- ДОДАВАННЯ ЗВИЧКИ -->
+    <section id="addSection">
+      <h2>Додати нову звичку</h2>
+      <form id="habitForm">
+        <label>Назва звички:</label>
+        <input type="text" id="habitName" required /><br />
+
+        <label>Опис:</label>
+        <input type="text" id="habitDesc" /><br />
+
+        <label>Як часто?</label>
+        <select id="habitFrequency">
+          <option value="daily">Щодня</option>
+          <option value="weekly">Щотижня</option>
+          <option value="monthly">Щомісяця</option>
+        </select><br />
+
+        <button type="submit">💾 Зберегти</button>
+      </form>
+    </section>
+
+    <!-- СПИСОК ЗВИЧОК -->
+    <section id="listSection">
+      <h2>Мої звички</h2>
+      <table id="habitTable">
+        <thead>
+          <tr>
+            <th>Назва</th>
+            <th>Опис</th>
+            <th>Частота</th>
+            <th>Виконано</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- СТАТИСТИКА -->
+    <section id="statsSection">
+      <h2>Статистика</h2>
+      <p>Тут буде твій прогрес 📊</p>
+      <div id="progressContainer"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
