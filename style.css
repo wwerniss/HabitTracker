@@ -1,0 +1,219 @@
+/* === 🌸 БАЗОВІ ЗМІННІ ДЛЯ СВІТЛОЇ ТЕМИ === */
+:root {
+  --bg-color: #E6E6FA;          /* світло-лавандовий фон */
+  --text-color: #2E2E3A;        /* темно-сірий текст */
+  --card-bg: #FFFFFF;           /* білі блоки */
+  --accent-color: #B49DE1;      /* кнопки, акценти */
+  --accent-hover: #A5D8FF;      /* підсвічування */
+  --border-color: #C9C9E0;      /* рамки */
+}
+
+/* === 🌙 ТЕМНА ТЕМА === */
+body.dark {
+  --bg-color: #290E56;          /* темно-синій фон */
+  --text-color: #F0E6FF;        /* світлий текст */
+  --card-bg: #3E1077;           /* фіолетові картки */
+  --accent-color: #6B48B8;      /* насичена лаванда для кнопок */
+  --accent-hover: #8B83D8;      /* блакитно-лавандовий hover */
+  --border-color: #532C97;      /* темно-лавандова рамка */
+}
+body.dark #homeSection h2 {
+  color: #ffffff; /* робимо фразу “Вітаю тебе...” білою */
+}
+/* === 🧩 ГЛОБАЛЬНІ СТИЛІ === */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* === 🏷 ЗАГОЛОВОК === */
+h1 {
+  text-align: center;
+  background-color: var(--accent-color);
+  color: white;
+  padding: 20px 0;
+  margin: 0;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* === 📍НАВІГАЦІЯ === */
+nav {
+  display: flex;
+  justify-content: center;
+  background-color: var(--card-bg);
+  padding: 12px;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+nav button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+nav button:hover {
+  background-color: var(--accent-hover);
+  transform: scale(1.05);
+}
+
+/* === 🧱 ОСНОВНИЙ КОНТЕЙНЕР === */
+main {
+  max-width: 850px;
+  margin: 30px auto;
+  padding: 25px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border: 1px solid var(--border-color);
+  transition: background-color 0.4s ease;
+}
+
+/* === ✏️ ФОРМА ДОДАВАННЯ ЗВИЧКИ === */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+input, textarea, select {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: #fff;
+  color: var(--text-color);
+  transition: 0.3s;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 5px var(--accent-color);
+}
+
+/* Для темної теми */
+body.dark input,
+body.dark textarea,
+body.dark select {
+  background-color: #4a237c;
+  color: #F0E6FF;
+  border-color: #6B48B8;
+}
+
+/* === 🔘 КНОПКИ === */
+button[type="submit"] {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--accent-hover);
+}
+
+/* === 📋 ТАБЛИЦЯ === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px;
+  text-align: left;
+  transition: background-color 0.3s ease;
+}
+
+th {
+  background-color: var(--accent-color);
+  color: white;
+  font-weight: 500;
+}
+
+tr:nth-child(even) {
+  background-color: #f7f5ff;
+}
+
+body.dark tr:nth-child(even) {
+  background-color: #3c1a69;
+}
+
+/* === 🧩 СЕКЦІЇ === */
+#add-habit, #habit-list {
+  margin-bottom: 40px;
+}
+
+h2 {
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 6px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+section {
+  transition: opacity 0.3s ease, background-color 0.4s ease;
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+/* === 🌗 Кнопка перемикання теми === */
+#theme-toggle {
+  margin-left: 10px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.4s ease, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Стан сонця */
+#theme-toggle.sun {
+  background-color: #FFD86F;
+  color: #000;
+}
+
+/* Стан місяця */
+#theme-toggle.moon {
+  background-color: #B49DE1;
+  color: #fff;
+}
+
+/* Ефект обертання */
+#theme-toggle.rotate {
+  transform: rotate(360deg);
+}
+ /* === 🔄 Ховаємо всі секції, окрім активної === */
+section {
+  display: none;
+}
+
+section.active {
+  display: block;
+}
