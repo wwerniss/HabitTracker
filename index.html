@@ -13,6 +13,7 @@
       <button id="addBtn">➕ Додати звичку</button>
       <button id="listBtn">📋 Мої звички</button>
       <button id="statsBtn">📈 Статистика</button>
+      <button id="theme-toggle" class="moon" title="Перемкнути тему">🌙</button>
     </nav>
   </header>
 
@@ -21,46 +22,50 @@
     <section id="homeSection" class="active">
       <h2>Вітаю тебе у трекері звичок!</h2>
       <p>
-  "Habit Tracker" - це простий вебдодаток, який допоможе тобі створювати, відстежувати 
-  та підтримувати свої щоденні звички. <br>
-  Додавай нові цілі, позначай виконані завдання і спостерігай, 
-  як зростає твій прогрес! 💪 <br>
-</p>
+        "Habit Tracker" — це простий вебдодаток, який допоможе тобі створювати, 
+        відстежувати та підтримувати свої щоденні звички. <br>
+        Додавай нові цілі, позначай виконані завдання і спостерігай, 
+        як зростає твій прогрес! 💪
+      </p>
+    </section>
 
-    <!-- ДОДАВАННЯ ЗВИЧКИ -->
-    <section id="addSection">
+    <!-- ДОДАТИ ЗВИЧКУ -->
+    <section id="add-habit">
       <h2>Додати нову звичку</h2>
-      <form id="habitForm">
-        <label>Назва звички:</label>
-        <input type="text" id="habitName" required /><br />
 
-        <label>Опис:</label>
-        <input type="text" id="habitDesc" /><br />
+      <form id="habit-form">
+        <label for="habit-name">Назва звички:</label>
+        <input type="text" id="habit-name" placeholder="Наприклад: Пити воду" required>
 
-        <label>Як часто?</label>
-        <select id="habitFrequency">
-          <option value="daily">Щодня</option>
-          <option value="weekly">Щотижня</option>
-          <option value="monthly">Щомісяця</option>
-        </select><br />
+        <label for="habit-desc">Опис:</label>
+        <textarea id="habit-desc" placeholder="Короткий опис..." rows="3"></textarea>
 
-        <button type="submit">💾 Зберегти</button>
+        <label for="habit-frequency">Частота:</label>
+        <select id="habit-frequency">
+          <option value="Щодня">Щодня</option>
+          <option value="Щотижня">Щотижня</option>
+          <option value="Щомісяця">Щомісяця</option>
+        </select>
+
+        <button type="submit">Додати звичку</button>
       </form>
     </section>
 
     <!-- СПИСОК ЗВИЧОК -->
-    <section id="listSection">
+    <section id="habit-list">
       <h2>Мої звички</h2>
-      <table id="habitTable">
+      <table>
         <thead>
           <tr>
             <th>Назва</th>
             <th>Опис</th>
             <th>Частота</th>
-            <th>Виконано</th>
+            <th>Виконано ✅</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody id="habit-table-body">
+          <!-- Сюди будемо додавати рядки через JavaScript -->
+        </tbody>
       </table>
     </section>
 
@@ -71,7 +76,6 @@
       <div id="progressContainer"></div>
     </section>
   </main>
-
   <script src="script.js"></script>
 </body>
 </html>
