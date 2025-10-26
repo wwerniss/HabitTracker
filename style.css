@@ -513,6 +513,35 @@ body.dark .clear-btn:hover {
   cursor: pointer;
 }
 
+/* 🟣 Спливаючі повідомлення (toast) */
+#toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+
+.toast {
+  background: linear-gradient(135deg, #b48ef5, #8a6fe8);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  font-weight: 500;
+  font-size: 15px;
+  animation: fadeInOut 6s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(20px); }
+  10%, 90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(20px); }
+}
+
+
 
 
 

@@ -63,6 +63,11 @@
           <option value="Інше">✨ Інше</option>
         </select>
 
+        <!-- 🆕 Поле нагадування -->
+        <label for="habit-reminder">Нагадування:</label>
+        <input type="time" id="habit-reminder">
+        <small>Оберіть час, коли ви хочете отримувати нагадування ⏰</small>
+
         <button type="submit">Додати звичку</button>
       </form>
     </section>
@@ -77,7 +82,7 @@
         <button id="filterDone" class="filter">Виконані ✅</button>
         <button id="filterNotDone" class="filter">Невиконані ❌</button>
 
-        <!-- 🆕 Селект категорій -->
+        <!-- Селект категорій -->
         <select id="categoryFilter" class="category-filter">
           <option value="all">Усі категорії</option>
           <option value="Здоров’я">💪 Здоров’я</option>
@@ -95,6 +100,7 @@
             <th>Опис</th>
             <th>Частота</th>
             <th>Категорія</th>
+            <th>Нагадування ⏰</th>
             <th>Виконано ✅</th>
             <th>Серія 🔥</th>
             <th>Дії</th>
@@ -121,20 +127,23 @@
         <p id="progressSummary"></p>
       </div>
     </section>
+
     <!-- 📅 КАЛЕНДАР -->
-<section id="calendarSection">
-  <h2>Мій календар звичок</h2>
-
-  <div class="calendar-controls">
-    <button id="prevMonth">⬅️</button>
-    <span id="monthLabel"></span>
-    <button id="nextMonth">➡️</button>
-  </div>
-
-  <div id="calendarContainer" class="calendar-grid"></div>
-</section>
+    <section id="calendarSection">
+      <h2>Мій календар звичок</h2>
+      <div class="calendar-controls">
+        <button id="prevMonth">⬅️</button>
+        <span id="monthLabel"></span>
+        <button id="nextMonth">➡️</button>
+      </div>
+      <div id="calendarContainer" class="calendar-grid"></div>
+    </section>
   </main>
 
   <script src="script.js"></script>
+  
+  <!-- 🟣 Контейнер для повідомлень -->
+<div id="toast-container"></div>
+
 </body>
 </html>

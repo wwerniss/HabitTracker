@@ -95,7 +95,7 @@ function launchConfetti() {
   }
 }
 
-// === 📋 Фільтрація та рендер звичок ===
+// === 📋 Рендер звичок ===
 let currentFilter = "all";
 let currentCategory = "all";
 
@@ -117,6 +117,7 @@ function renderFilteredHabits() {
       <td>${habit.desc}</td>
       <td>${habit.frequency}</td>
       <td><span class="badge badge-${habit.category?.toLowerCase() || "none"}">${habit.category || "—"}</span></td>
+      <td>${habit.reminderTime || "—"}</td>
       <td><input type="checkbox" ${habit.done ? "checked" : ""} data-index="${index}"></td>
       <td>${habit.streak || 0}</td>
       <td>
@@ -149,52 +150,39 @@ if (clearAllBtn) {
   });
 }
 
-// === 🧠 Події чекбоксів, редагування, видалення ===
+// === 🧠 Події ===
 function attachHabitEventListeners() {
   document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) =>
-  checkbox.addEventListener("change", (e) => {
-    const idx = e.target.dataset.index;
-    const habit = habits[idx];
-    const today = new Date().toISOString().split("T")[0];
-    const todayDate = new Date(today);
+    checkbox.addEventListener("change", (e) => {
+      const idx = e.target.dataset.index;
+      const habit = habits[idx];
+      const today = new Date().toISOString().split("T")[0];
+      const todayDate = new Date(today);
 
-    if (e.target.checked) {
-      habit.done = true;
+      if (e.target.checked) {
+        habit.done = true;
+        if (!habit.dates) habit.dates = [];
+        if (!habit.dates.includes(today)) habit.dates.push(today);
+        habit.dates.sort();
+        showToast(`🎉 Молодець! "${habit.name}" виконано!`);
 
-      // Ініціалізуємо масив дат
-      if (!habit.dates) habit.dates = [];
-
-      // Якщо день ще не записано — додаємо
-      if (!habit.dates.includes(today)) habit.dates.push(today);
-
-      // Сортуємо дати (на випадок збоїв)
-      habit.dates.sort();
-
-      // === Рахуємо серію 🔥 ===
-      if (habit.dates.length > 1) {
-        const lastDate = new Date(habit.dates[habit.dates.length - 2]);
-        const diffDays = Math.floor(
-          (todayDate - lastDate) / (1000 * 60 * 60 * 24)
-        );
-
-        if (diffDays === 1) {
-          habit.streak = (habit.streak || 0) + 1;
-        } else {
-          habit.streak = 1;
-        }
+        if (habit.dates.length > 1) {
+          const lastDate = new Date(habit.dates[habit.dates.length - 2]);
+          const diffDays = Math.floor(
+            (todayDate - lastDate) / (1000 * 60 * 60 * 24)
+          );
+          if (diffDays === 1) habit.streak = (habit.streak || 0) + 1;
+          else habit.streak = 1;
+        } else habit.streak = 1;
       } else {
-        habit.streak = 1;
+        habit.done = false;
       }
 
-    } else {
-      // Якщо зняли позначку
-      habit.done = false;
-    }
+      localStorage.setItem("habits", JSON.stringify(habits));
+      renderFilteredHabits();
+    })
+  );
 
-    localStorage.setItem("habits", JSON.stringify(habits));
-    renderFilteredHabits();
-  })
-);
   document.querySelectorAll(".edit-btn").forEach((btn) =>
     btn.addEventListener("click", (e) => {
       const idx = e.target.dataset.index;
@@ -202,8 +190,9 @@ function attachHabitEventListeners() {
       document.getElementById("habit-name").value = habit.name;
       document.getElementById("habit-desc").value = habit.desc;
       document.getElementById("habit-frequency").value = habit.frequency;
-      document.getElementById("habit-category").value =
-        habit.category || "Інше";
+      document.getElementById("habit-category").value = habit.category || "Інше";
+      document.getElementById("habit-reminder").value =
+        habit.reminderTime || "";
       habitForm.dataset.editing = idx;
       document.getElementById("edit-indicator").style.display = "block";
       document.getElementById("edit-name").textContent = habit.name;
@@ -258,6 +247,7 @@ habitForm.addEventListener("submit", (e) => {
   const desc = document.getElementById("habit-desc").value.trim();
   const frequency = document.getElementById("habit-frequency").value;
   const category = document.getElementById("habit-category").value;
+  const reminderTime = document.getElementById("habit-reminder").value;
 
   if (!name) return;
 
@@ -269,6 +259,7 @@ habitForm.addEventListener("submit", (e) => {
       desc,
       frequency,
       category,
+      reminderTime,
     };
     delete habitForm.dataset.editing;
   } else {
@@ -277,6 +268,7 @@ habitForm.addEventListener("submit", (e) => {
       desc,
       frequency,
       category,
+      reminderTime,
       done: false,
       streak: 0,
       dates: [],
@@ -286,11 +278,35 @@ habitForm.addEventListener("submit", (e) => {
   localStorage.setItem("habits", JSON.stringify(habits));
   habitForm.reset();
   document.getElementById("edit-indicator").style.display = "none";
+  showToast(`✅ Звичку "${name}" додано!`);
 
   renderFilteredHabits();
   hideAllSections();
   listSection.classList.add("active");
 });
+
+// === 🔔 НАГАДУВАННЯ ===
+if (Notification.permission !== "granted") {
+  Notification.requestPermission();
+}
+
+function checkReminders() {
+  const now = new Date();
+  const currentTime = now.toTimeString().slice(0, 5);
+
+  habits.forEach((habit) => {
+    if (habit.reminderTime === currentTime && !habit.done) {
+      showNotification(habit);
+    }
+  });
+}
+
+// === 🔔 Локальне нагадування через toast ===
+function showNotification(habit) {
+  showToast(`⏰ Нагадування: не забудь — "${habit.name}"`);
+}
+
+setInterval(checkReminders, 60000);
 
 // === 🔁 Перемикання секцій ===
 const homeSection = document.getElementById("homeSection");
@@ -387,6 +403,20 @@ nextMonthBtn.addEventListener("click", () => {
   }
   renderCalendar();
 });
+
+// === 🔔 Локальне візуальне нагадування ===
+function showToast(message) {
+  const container = document.getElementById("toast-container");
+  const toast = document.createElement("div");
+  toast.classList.add("toast");
+  toast.textContent = message;
+  container.appendChild(toast);
+
+  // автоматично зникає через 3,5 секунди
+  setTimeout(() => {
+    toast.remove();
+  }, 6000);
+}
 
 // === 🚀 Старт ===
 document.addEventListener("DOMContentLoaded", () => {
