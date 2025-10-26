@@ -5,6 +5,7 @@
   <title>Habit Tracker</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <header>
     <h1>Habit Tracker</h1>
@@ -18,7 +19,7 @@
   </header>
 
   <main>
-    <!-- ГОЛОВНА -->
+    <!--  ГОЛОВНА -->
     <section id="homeSection" class="active">
       <h2>Вітаю тебе у трекері звичок!</h2>
       <p>
@@ -29,12 +30,14 @@
       </p>
     </section>
 
-    <!-- ДОДАТИ ЗВИЧКУ -->
+    <!--  ДОДАТИ ЗВИЧКУ -->
     <section id="add-habit">
       <h2>Додати нову звичку</h2>
+
+      <!-- Індикатор редагування -->
       <p id="edit-indicator" style="display:none; color:#b86bff; font-weight:600;">
-  ✏️ Режим редагування: <span id="edit-name"></span>
-      </p>  
+        ✏️ Режим редагування: <span id="edit-name"></span>
+      </p>
 
       <form id="habit-form">
         <label for="habit-name">Назва звички:</label>
@@ -54,32 +57,41 @@
       </form>
     </section>
 
-    <!-- СПИСОК ЗВИЧОК -->
+    <!-- 📋 СПИСОК ЗВИЧОК -->
     <section id="habit-list">
       <h2>Мої звички</h2>
       <table>
         <thead>
           <tr>
-          <th>Назва</th>
-          <th>Опис</th>
-          <th>Частота</th>
-          <th>Виконано ✅</th>
-          <th>Дії</th>
+            <th>Назва</th>
+            <th>Опис</th>
+            <th>Частота</th>
+            <th>Виконано ✅</th>
+            <th>Дії</th>
           </tr>
         </thead>
         <tbody id="habit-table-body">
-          <!-- Сюди будемо додавати рядки через JavaScript -->
+          <!-- Рядки додаються JavaScript'ом -->
         </tbody>
       </table>
     </section>
 
-    <!-- СТАТИСТИКА -->
+    <!-- 📈 СТАТИСТИКА -->
     <section id="statsSection">
       <h2>Статистика</h2>
       <p>Тут буде твій прогрес 📊</p>
-      <div id="progressContainer"></div>
+      <div id="progressContainer">
+  <div class="progress-wrapper">
+    <div class="circle-progress">
+      <span id="progressText">0%</span>
+    </div>
+  </div>
+  <p id="progressSummary"></p>
+</div>
+
     </section>
   </main>
+
   <script src="script.js"></script>
 </body>
 </html>

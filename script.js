@@ -1,5 +1,4 @@
-// === 🌙 Тема ===
-// Тема 
+// ===  Тема ===
 const themeToggle = document.getElementById("theme-toggle");
 
 // Створюємо ефект плавного переходу фону
@@ -11,7 +10,6 @@ const animateThemeChange = () => {
 };
 
 // Якщо користувач раніше вже обирав тему — застосовуємо її
-// Застосування теми
 if (localStorage.getItem("theme") === "dark") {
   document.body.classList.add("dark");
   themeToggle.textContent = "☀️";
@@ -22,10 +20,10 @@ if (localStorage.getItem("theme") === "dark") {
 }
 
 // Анімація кнопки при зміні теми
-// Кнопка перемикання теми
 themeToggle.addEventListener("click", () => {
   animateThemeChange();
   document.body.classList.toggle("dark");
+
   themeToggle.classList.add("rotate");
   setTimeout(() => themeToggle.classList.remove("rotate"), 400);
 
@@ -42,38 +40,69 @@ themeToggle.addEventListener("click", () => {
   }
 });
 
-// === 🧩 Додавання звички ===
-// Додавання звички 
+// ===  Додавання звички ===
 const habitForm = document.getElementById("habit-form");
 const habitTableBody = document.getElementById("habit-table-body");
+
+// Зчитуємо звички з localStorage (якщо є)
 let habits = JSON.parse(localStorage.getItem("habits")) || [];
 
-// Перемикання секцій 
-const homeSection = document.getElementById("homeSection");
-const addSection = document.getElementById("add-habit");
-const listSection = document.getElementById("habit-list");
-const statsSection = document.getElementById("statsSection");
+// ===  Оновлення статистики ===
+function updateStats() {
+  const total = habits.length;
+  const done = habits.filter(h => h.done).length;
+  const percent = total ? Math.round((done / total) * 100) : 0;
 
-const homeBtn = document.getElementById("homeBtn");
-const addBtn = document.getElementById("addBtn");
-const listBtn = document.getElementById("listBtn");
-const statsBtn = document.getElementById("statsBtn");
+  const circle = document.querySelector(".circle-progress");
+  const text = document.getElementById("progressText");
+  const summary = document.getElementById("progressSummary");
+  const progressContainer = document.getElementById("progressContainer");
 
-function showSection(section) {
-  // Ховаємо всі секції
-  document.querySelectorAll("section").forEach((sec) => {
-    sec.style.display = "none";
-  });
-  // Показуємо потрібну
-  section.style.display = "block";
+  setTimeout(() => {
+    circle.style.background = `conic-gradient(var(--accent-color) ${percent * 3.6}deg, var(--circle-bg) ${percent * 3.6}deg)`;
+  }, 100);
+
+  text.textContent = `${percent}%`;
+  summary.innerHTML = `📈 Виконано <strong>${done}</strong> із <strong>${total}</strong> звичок`;
+
+  const oldMsg = document.querySelector(".success-message");
+  if (oldMsg) oldMsg.remove();
+
+  if (percent === 100 && total > 0) {
+    const msg = document.createElement("p");
+    msg.innerHTML = `🎉 <strong>Всі звички виконано! Молодець! 💚</strong>`;
+    msg.classList.add("success-message");
+    progressContainer.appendChild(msg);
+    launchConfetti();
+  }
 }
 
-homeBtn.addEventListener("click", () => showSection(homeSection));
-addBtn.addEventListener("click", () => showSection(addSection));
-listBtn.addEventListener("click", () => showSection(listSection));
-statsBtn.addEventListener("click", () => showSection(statsSection));
+// ===  Конфетті ===
+function launchConfetti() {
+  const colors = ["#A28CF2", "#B8E986", "#FFD86F", "#FF6F91", "#6B48B8"];
+  for (let i = 0; i < 40; i++) {
+    const confetti = document.createElement("div");
+    confetti.style.position = "fixed";
+    confetti.style.top = "-10px";
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.width = "10px";
+    confetti.style.height = "10px";
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.opacity = Math.random();
+    confetti.style.borderRadius = "50%";
+    confetti.style.zIndex = "9999";
+    confetti.style.transition = "top 3s ease, opacity 3s ease";
+    document.body.appendChild(confetti);
 
-// Таблиця звичок 
+    setTimeout(() => {
+      confetti.style.top = "100vh";
+      confetti.style.opacity = "0";
+    }, 100);
+    setTimeout(() => confetti.remove(), 3000);
+  }
+}
+
+// ===  Відображення звичок ===
 function renderHabits() {
   habitTableBody.innerHTML = "";
 
@@ -92,16 +121,17 @@ function renderHabits() {
     habitTableBody.appendChild(row);
   });
 
-  // Чекбокси
+  // Зміна стану виконання
   document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
     checkbox.addEventListener("change", (e) => {
       const idx = e.target.dataset.index;
       habits[idx].done = e.target.checked;
       localStorage.setItem("habits", JSON.stringify(habits));
+      updateStats();
     });
   });
 
-  // Редагування
+  //  Редагування
   document.querySelectorAll(".edit-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const idx = e.target.dataset.index;
@@ -111,34 +141,40 @@ function renderHabits() {
       document.getElementById("habit-desc").value = habit.desc;
       document.getElementById("habit-frequency").value = habit.frequency;
 
-      document.getElementById("edit-indicator").style.display = "block";
-      document.getElementById("edit-name").textContent = habit.name;
-
       habitForm.dataset.editing = idx;
 
-      // Автоматично переходимо на вкладку "Додати звичку"
-      showSection(addSection);
+      // ✅ Показуємо фразу "Режим редагування"
+      const indicator = document.getElementById("edit-indicator");
+      const editName = document.getElementById("edit-name");
+      indicator.style.display = "block";
+      editName.textContent = habit.name;
+
+      hideAllSections();
+      addSection.classList.add("active");
     });
   });
 
-  // Видалення
+  //  Видалення
   document.querySelectorAll(".delete-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const idx = e.target.dataset.index;
       habits.splice(idx, 1);
       localStorage.setItem("habits", JSON.stringify(habits));
       renderHabits();
+      updateStats();
     });
   });
+
+  updateStats();
 }
 
-// Додавання / редагування звички   
+// ===  Додавання / редагування звички ===
 habitForm.addEventListener("submit", (e) => {
   e.preventDefault();
-
   const name = document.getElementById("habit-name").value.trim();
   const desc = document.getElementById("habit-desc").value.trim();
   const frequency = document.getElementById("habit-frequency").value;
+
   if (!name) return;
 
   const editingIndex = habitForm.dataset.editing;
@@ -151,13 +187,39 @@ habitForm.addEventListener("submit", (e) => {
 
   localStorage.setItem("habits", JSON.stringify(habits));
   habitForm.reset();
-  renderHabits();
+
+  //  Ховаємо фразу після збереження
   document.getElementById("edit-indicator").style.display = "none";
 
-  // Повертаємось до списку звичок
-  showSection(listSection);
+  renderHabits();
+  hideAllSections();
+  listSection.classList.add("active");
 });
 
-// При старті
-renderHabits();
-showSection(homeSection);
+// ===  Перемикання секцій ===
+const homeSection = document.getElementById("homeSection");
+const addSection = document.getElementById("add-habit");
+const listSection = document.getElementById("habit-list");
+const statsSection = document.getElementById("statsSection");
+
+const homeBtn = document.getElementById("homeBtn");
+const addBtn = document.getElementById("addBtn");
+const listBtn = document.getElementById("listBtn");
+const statsBtn = document.getElementById("statsBtn");
+
+function hideAllSections() {
+  document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+}
+
+homeBtn.addEventListener("click", () => { hideAllSections(); homeSection.classList.add("active"); });
+addBtn.addEventListener("click", () => { hideAllSections(); addSection.classList.add("active"); });
+listBtn.addEventListener("click", () => { hideAllSections(); listSection.classList.add("active"); });
+statsBtn.addEventListener("click", () => { hideAllSections(); statsSection.classList.add("active"); });
+
+// ===  Старт
+document.addEventListener("DOMContentLoaded", () => {
+  renderHabits();
+  updateStats();
+  hideAllSections();
+  homeSection.classList.add("active");
+});

@@ -1,4 +1,4 @@
-/* === 🌸 БАЗОВІ ЗМІННІ ДЛЯ СВІТЛОЇ ТЕМИ === */
+/* ===  БАЗОВІ ЗМІННІ ДЛЯ СВІТЛОЇ ТЕМИ === */
 :root {
   --bg-color: #E6E6FA;          /* світло-лавандовий фон */
   --text-color: #2E2E3A;        /* темно-сірий текст */
@@ -8,7 +8,7 @@
   --border-color: #C9C9E0;      /* рамки */
 }
 
-/* === 🌙 ТЕМНА ТЕМА === */
+/* ===  ТЕМНА ТЕМА === */
 body.dark {
   --bg-color: #290E56;          /* темно-синій фон */
   --text-color: #F0E6FF;        /* світлий текст */
@@ -16,11 +16,21 @@ body.dark {
   --accent-color: #6B48B8;      /* насичена лаванда для кнопок */
   --accent-hover: #8B83D8;      /* блакитно-лавандовий hover */
   --border-color: #532C97;      /* темно-лавандова рамка */
+
+}
+:root {
+  --accent-color: #a78bfa;     /* лаванда */
+  --circle-bg: #e0e0e0;        /* фон кола у світлій темі */
+}
+
+body.dark {
+  --accent-color: #8b5cf6;     /* темніший фіолетовий */
+  --circle-bg: #3a2b5f;        /* фон кола у темній темі */
 }
 body.dark #homeSection h2 {
   color: #ffffff; /* робимо фразу “Вітаю тебе...” білою */
 }
-/* === 🧩 ГЛОБАЛЬНІ СТИЛІ === */
+/* ===  ГЛОБАЛЬНІ СТИЛІ === */
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   background: var(--bg-color);
@@ -31,7 +41,7 @@ body {
   transition: background 0.4s ease, color 0.4s ease;
 }
 
-/* === 🏷 ЗАГОЛОВОК === */
+/* ===  ЗАГОЛОВОК === */
 h1 {
   text-align: center;
   background-color: var(--accent-color);
@@ -42,7 +52,7 @@ h1 {
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
-/* === 📍НАВІГАЦІЯ === */
+/* === НАВІГАЦІЯ === */
 nav {
   display: flex;
   justify-content: center;
@@ -68,7 +78,7 @@ nav button:hover {
   transform: scale(1.05);
 }
 
-/* === 🧱 ОСНОВНИЙ КОНТЕЙНЕР === */
+/* ===  ОСНОВНИЙ КОНТЕЙНЕР === */
 main {
   max-width: 850px;
   margin: 30px auto;
@@ -80,7 +90,7 @@ main {
   transition: background-color 0.4s ease;
 }
 
-/* === ✏️ ФОРМА ДОДАВАННЯ ЗВИЧКИ === */
+/* ===  ФОРМА ДОДАВАННЯ ЗВИЧКИ === */
 form {
   display: flex;
   flex-direction: column;
@@ -113,7 +123,7 @@ body.dark select {
   border-color: #6B48B8;
 }
 
-/* === 🔘 КНОПКИ === */
+/* ===  КНОПКИ === */
 button[type="submit"] {
   background-color: var(--accent-color);
   color: white;
@@ -129,7 +139,7 @@ button[type="submit"]:hover {
   background-color: var(--accent-hover);
 }
 
-/* === 📋 ТАБЛИЦЯ === */
+/* ===  ТАБЛИЦЯ === */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -157,7 +167,7 @@ body.dark tr:nth-child(even) {
   background-color: #3c1a69;
 }
 
-/* === 🧩 СЕКЦІЇ === */
+/* ===  СЕКЦІЇ === */
 #add-habit, #habit-list {
   margin-bottom: 40px;
 }
@@ -178,7 +188,7 @@ section {
   margin-bottom: 25px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.08);
 }
-/* === 🌗 Кнопка перемикання теми === */
+/* ===  Кнопка перемикання теми === */
 #theme-toggle {
   margin-left: 10px;
   width: 42px;
@@ -209,7 +219,7 @@ section {
 #theme-toggle.rotate {
   transform: rotate(360deg);
 }
- /* === 🔄 Ховаємо всі секції, окрім активної === */
+ /* ===  Ховаємо всі секції, окрім активної === */
 section {
   display: none;
 }
@@ -252,3 +262,120 @@ body.dark .edit-btn,
 body.dark .delete-btn {
   box-shadow: 0 2px 8px rgba(255,255,255,0.15);
 }
+
+/* ===  Прогрес-бар === */
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #b49de1, #6b48b8);
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+/*  Анімація появи повідомлення "Всі звички виконано!" */
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.success-message {
+  color: #32CD32;
+  font-weight: bold;
+  font-size: 18px;
+  text-shadow: 0 0 8px rgba(50,205,50,0.6);
+  margin-top: 12px;
+  letter-spacing: 0.6px;
+  animation: popIn 0.8s ease forwards;
+}
+#statsChart {
+  display: block;
+  margin: 0 auto;
+  transition: all 0.6s ease;
+}
+/* ===  КРУГОВА ДІАГРАМА === */
+.progress-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 0;
+}
+
+.circle-progress {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent-color) 0deg, var(--circle-bg) 0deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 0 15px rgba(0,0,0,0.15);
+  transition: background 1.2s ease-in-out;
+  animation: pulse 2.5s infinite ease-in-out;
+}
+
+/* Ефект “дихання” */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(155, 135, 255, 0.5);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(180, 157, 225, 0.8);
+  }
+}
+
+.circle-progress span {
+  position: absolute;
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+#progressSummary {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.success-message {
+  color: #32CD32;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 18px;
+  animation: popIn 0.8s ease;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+
