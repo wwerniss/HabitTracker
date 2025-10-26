@@ -14,23 +14,24 @@
       <button id="addBtn">➕ Додати звичку</button>
       <button id="listBtn">📋 Мої звички</button>
       <button id="statsBtn">📈 Статистика</button>
+      <button id="calendarBtn">📅 Календар</button>
       <button id="theme-toggle" class="moon" title="Перемкнути тему">🌙</button>
     </nav>
   </header>
 
   <main>
-    <!--  ГОЛОВНА -->
+    <!-- 🏠 ГОЛОВНА -->
     <section id="homeSection" class="active">
       <h2>Вітаю тебе у трекері звичок!</h2>
       <p>
-        "Habit Tracker" — це простий вебдодаток, який допоможе тобі створювати, 
+        "Habit Tracker" — це простий вебдодаток, який допоможе тобі створювати,
         відстежувати та підтримувати свої щоденні звички. <br>
-        Додавай нові цілі, позначай виконані завдання і спостерігай, 
+        Додавай нові цілі, позначай виконані завдання і спостерігай,
         як зростає твій прогрес! 💪
       </p>
     </section>
 
-    <!--  ДОДАТИ ЗВИЧКУ -->
+    <!-- ➕ ДОДАТИ ЗВИЧКУ -->
     <section id="add-habit">
       <h2>Додати нову звичку</h2>
 
@@ -53,33 +54,58 @@
           <option value="Щомісяця">Щомісяця</option>
         </select>
 
+        <label for="habit-category">Категорія:</label>
+        <select id="habit-category">
+          <option value="Здоров’я">💪 Здоров’я</option>
+          <option value="Навчання">📚 Навчання</option>
+          <option value="Розвиток">🌱 Розвиток</option>
+          <option value="Робота">💼 Робота</option>
+          <option value="Інше">✨ Інше</option>
+        </select>
+
         <button type="submit">Додати звичку</button>
       </form>
     </section>
 
+    <!-- 📋 СПИСОК ЗВИЧОК -->
     <section id="habit-list">
-         <!-- 📋 СПИСОК ЗВИЧОК -->
-     <div class="filter-buttons">
-  <button id="filterAll" class="filter active">Усі</button>
-  <button id="filterDone" class="filter">Виконані ✅</button>
-  <button id="filterNotDone" class="filter">Невиконані ❌</button>
-</div>
       <h2>Мої звички</h2>
+
+      <!-- Фільтри -->
+      <div class="filter-buttons">
+        <button id="filterAll" class="filter active">Усі</button>
+        <button id="filterDone" class="filter">Виконані ✅</button>
+        <button id="filterNotDone" class="filter">Невиконані ❌</button>
+
+        <!-- 🆕 Селект категорій -->
+        <select id="categoryFilter" class="category-filter">
+          <option value="all">Усі категорії</option>
+          <option value="Здоров’я">💪 Здоров’я</option>
+          <option value="Навчання">📚 Навчання</option>
+          <option value="Розвиток">🌱 Розвиток</option>
+          <option value="Робота">💼 Робота</option>
+          <option value="Інше">✨ Інше</option>
+        </select>
+      </div>
+
       <table>
         <thead>
           <tr>
             <th>Назва</th>
             <th>Опис</th>
             <th>Частота</th>
+            <th>Категорія</th>
             <th>Виконано ✅</th>
+            <th>Серія 🔥</th>
             <th>Дії</th>
           </tr>
-          <button id="clearAllBtn" class="clear-btn">🧹 Очистити всі звички</button>
         </thead>
         <tbody id="habit-table-body">
-          <!-- Рядки додаються JavaScript'ом -->
+          <!-- рядки додає JavaScript -->
         </tbody>
       </table>
+
+      <button id="clearAllBtn" class="clear-btn">🧹 Очистити всі звички</button>
     </section>
 
     <!-- 📈 СТАТИСТИКА -->
@@ -87,15 +113,26 @@
       <h2>Статистика</h2>
       <p>Тут буде твій прогрес 📊</p>
       <div id="progressContainer">
-  <div class="progress-wrapper">
-    <div class="circle-progress">
-      <span id="progressText">0%</span>
-    </div>
-  </div>
-  <p id="progressSummary"></p>
-</div>
-
+        <div class="progress-wrapper">
+          <div class="circle-progress">
+            <span id="progressText">0%</span>
+          </div>
+        </div>
+        <p id="progressSummary"></p>
+      </div>
     </section>
+    <!-- 📅 КАЛЕНДАР -->
+<section id="calendarSection">
+  <h2>Мій календар звичок</h2>
+
+  <div class="calendar-controls">
+    <button id="prevMonth">⬅️</button>
+    <span id="monthLabel"></span>
+    <button id="nextMonth">➡️</button>
+  </div>
+
+  <div id="calendarContainer" class="calendar-grid"></div>
+</section>
   </main>
 
   <script src="script.js"></script>
