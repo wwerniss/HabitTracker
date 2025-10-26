@@ -217,3 +217,38 @@ section {
 section.active {
   display: block;
 }
+/* ===  Кнопки редагування та видалення === */
+.edit-btn, .delete-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin: 0 3px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.25s ease;
+  background-color: var(--accent-color);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Редагувати */
+.edit-btn:hover {
+  background-color: #a47ee6;
+  transform: scale(1.1);
+}
+
+/* Видалити */
+.delete-btn {
+  background-color: #e45b78;
+}
+
+.delete-btn:hover {
+  background-color: #ff6b8a;
+  transform: scale(1.1);
+}
+
+/* Для темної теми */
+body.dark .edit-btn, 
+body.dark .delete-btn {
+  box-shadow: 0 2px 8px rgba(255,255,255,0.15);
+}

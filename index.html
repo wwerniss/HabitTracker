@@ -32,6 +32,9 @@
     <!-- ДОДАТИ ЗВИЧКУ -->
     <section id="add-habit">
       <h2>Додати нову звичку</h2>
+      <p id="edit-indicator" style="display:none; color:#b86bff; font-weight:600;">
+  ✏️ Режим редагування: <span id="edit-name"></span>
+      </p>  
 
       <form id="habit-form">
         <label for="habit-name">Назва звички:</label>
@@ -57,10 +60,11 @@
       <table>
         <thead>
           <tr>
-            <th>Назва</th>
-            <th>Опис</th>
-            <th>Частота</th>
-            <th>Виконано ✅</th>
+          <th>Назва</th>
+          <th>Опис</th>
+          <th>Частота</th>
+          <th>Виконано ✅</th>
+          <th>Дії</th>
           </tr>
         </thead>
         <tbody id="habit-table-body">
