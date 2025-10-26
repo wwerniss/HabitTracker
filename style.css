@@ -376,6 +376,56 @@ body.dark .delete-btn {
     opacity: 1;
   }
 }
+.clear-btn {
+  background-color: #ff6f91;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.clear-btn:hover {
+  background-color: #ff4d6d;
+  transform: scale(1.05);
+}
+
+/* Темна тема */
+body.dark .clear-btn {
+  background-color: #d84a6f;
+}
+body.dark .clear-btn:hover {
+  background-color: #ff6b8a;
+}
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.filter {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.filter:hover {
+  background-color: var(--accent-hover);
+  transform: scale(1.05);
+}
+
+.filter.active {
+  background-color: #6b48b8;
+  box-shadow: 0 0 6px rgba(0,0,0,0.2);
+}
+
 
 
 

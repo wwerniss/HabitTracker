@@ -1,4 +1,4 @@
-// ===  Тема ===
+// === 🌙 Тема ===
 const themeToggle = document.getElementById("theme-toggle");
 
 // Створюємо ефект плавного переходу фону
@@ -40,14 +40,12 @@ themeToggle.addEventListener("click", () => {
   }
 });
 
-// ===  Додавання звички ===
+// === 🧩 Звички ===
 const habitForm = document.getElementById("habit-form");
 const habitTableBody = document.getElementById("habit-table-body");
-
-// Зчитуємо звички з localStorage (якщо є)
 let habits = JSON.parse(localStorage.getItem("habits")) || [];
 
-// ===  Оновлення статистики ===
+// === 📈 Оновлення статистики ===
 function updateStats() {
   const total = habits.length;
   const done = habits.filter(h => h.done).length;
@@ -58,12 +56,14 @@ function updateStats() {
   const summary = document.getElementById("progressSummary");
   const progressContainer = document.getElementById("progressContainer");
 
-  setTimeout(() => {
-    circle.style.background = `conic-gradient(var(--accent-color) ${percent * 3.6}deg, var(--circle-bg) ${percent * 3.6}deg)`;
-  }, 100);
+  if (circle) {
+    setTimeout(() => {
+      circle.style.background = `conic-gradient(var(--accent-color) ${percent * 3.6}deg, var(--circle-bg) ${percent * 3.6}deg)`;
+    }, 100);
+  }
 
-  text.textContent = `${percent}%`;
-  summary.innerHTML = `📈 Виконано <strong>${done}</strong> із <strong>${total}</strong> звичок`;
+  if (text) text.textContent = `${percent}%`;
+  if (summary) summary.innerHTML = `📈 Виконано <strong>${done}</strong> із <strong>${total}</strong> звичок`;
 
   const oldMsg = document.querySelector(".success-message");
   if (oldMsg) oldMsg.remove();
@@ -77,7 +77,7 @@ function updateStats() {
   }
 }
 
-// ===  Конфетті ===
+// === 🎉 Конфетті ===
 function launchConfetti() {
   const colors = ["#A28CF2", "#B8E986", "#FFD86F", "#FF6F91", "#6B48B8"];
   for (let i = 0; i < 40; i++) {
@@ -102,11 +102,17 @@ function launchConfetti() {
   }
 }
 
-// ===  Відображення звичок ===
+// === 📋 Відображення звичок ===
 function renderHabits() {
   habitTableBody.innerHTML = "";
 
-  habits.forEach((habit, index) => {
+  const filtered = habits.filter(habit => {
+    if (currentFilter === "done") return habit.done;
+    if (currentFilter === "notdone") return !habit.done;
+    return true;
+  });
+
+  filtered.forEach((habit, index) => {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${habit.name}</td>
@@ -131,7 +137,7 @@ function renderHabits() {
     });
   });
 
-  //  Редагування
+  // Редагування
   document.querySelectorAll(".edit-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const idx = e.target.dataset.index;
@@ -143,7 +149,6 @@ function renderHabits() {
 
       habitForm.dataset.editing = idx;
 
-      // ✅ Показуємо фразу "Режим редагування"
       const indicator = document.getElementById("edit-indicator");
       const editName = document.getElementById("edit-name");
       indicator.style.display = "block";
@@ -154,7 +159,7 @@ function renderHabits() {
     });
   });
 
-  //  Видалення
+  // Видалення
   document.querySelectorAll(".delete-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const idx = e.target.dataset.index;
@@ -168,7 +173,48 @@ function renderHabits() {
   updateStats();
 }
 
-// ===  Додавання / редагування звички ===
+// === 🧹 Очистити всі звички ===
+const clearAllBtn = document.getElementById("clearAllBtn");
+if (clearAllBtn) {
+  clearAllBtn.addEventListener("click", () => {
+    if (habits.length === 0) {
+      alert("Список звичок вже порожній 🌸");
+      return;
+    }
+
+    if (confirm("Ти впевнений(а), що хочеш видалити всі звички? 😢")) {
+      habits = [];
+      localStorage.removeItem("habits");
+      renderHabits();
+      updateStats();
+      alert("Усі звички очищено 🧹");
+    }
+  });
+}
+
+// === 🔍 Фільтрація звичок ===
+const filterAll = document.getElementById("filterAll");
+const filterDone = document.getElementById("filterDone");
+const filterNotDone = document.getElementById("filterNotDone");
+
+let currentFilter = "all";
+
+if (filterAll && filterDone && filterNotDone) {
+  [filterAll, filterDone, filterNotDone].forEach(btn => {
+    btn.addEventListener("click", () => {
+      [filterAll, filterDone, filterNotDone].forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      if (btn === filterDone) currentFilter = "done";
+      else if (btn === filterNotDone) currentFilter = "notdone";
+      else currentFilter = "all";
+
+      renderHabits();
+    });
+  });
+}
+
+// === ➕ Додавання / редагування звички ===
 habitForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const name = document.getElementById("habit-name").value.trim();
@@ -188,7 +234,6 @@ habitForm.addEventListener("submit", (e) => {
   localStorage.setItem("habits", JSON.stringify(habits));
   habitForm.reset();
 
-  //  Ховаємо фразу після збереження
   document.getElementById("edit-indicator").style.display = "none";
 
   renderHabits();
@@ -196,7 +241,7 @@ habitForm.addEventListener("submit", (e) => {
   listSection.classList.add("active");
 });
 
-// ===  Перемикання секцій ===
+// === 🔁 Перемикання секцій ===
 const homeSection = document.getElementById("homeSection");
 const addSection = document.getElementById("add-habit");
 const listSection = document.getElementById("habit-list");
@@ -216,7 +261,7 @@ addBtn.addEventListener("click", () => { hideAllSections(); addSection.classList
 listBtn.addEventListener("click", () => { hideAllSections(); listSection.classList.add("active"); });
 statsBtn.addEventListener("click", () => { hideAllSections(); statsSection.classList.add("active"); });
 
-// ===  Старт
+// === 🚀 Старт
 document.addEventListener("DOMContentLoaded", () => {
   renderHabits();
   updateStats();

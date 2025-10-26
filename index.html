@@ -57,8 +57,13 @@
       </form>
     </section>
 
-    <!-- 📋 СПИСОК ЗВИЧОК -->
     <section id="habit-list">
+         <!-- 📋 СПИСОК ЗВИЧОК -->
+     <div class="filter-buttons">
+  <button id="filterAll" class="filter active">Усі</button>
+  <button id="filterDone" class="filter">Виконані ✅</button>
+  <button id="filterNotDone" class="filter">Невиконані ❌</button>
+</div>
       <h2>Мої звички</h2>
       <table>
         <thead>
@@ -69,6 +74,7 @@
             <th>Виконано ✅</th>
             <th>Дії</th>
           </tr>
+          <button id="clearAllBtn" class="clear-btn">🧹 Очистити всі звички</button>
         </thead>
         <tbody id="habit-table-body">
           <!-- Рядки додаються JavaScript'ом -->
