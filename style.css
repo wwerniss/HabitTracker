@@ -1,36 +1,25 @@
-/* ===  БАЗОВІ ЗМІННІ ДЛЯ СВІТЛОЇ ТЕМИ === */
+/* ===  ГЛОБАЛЬНІ ЗМІННІ === */
 :root {
-  --bg-color: #E6E6FA;          /* світло-лавандовий фон */
-  --text-color: #2E2E3A;        /* темно-сірий текст */
-  --card-bg: #FFFFFF;           /* білі блоки */
-  --accent-color: #B49DE1;      /* кнопки, акценти */
-  --accent-hover: #A5D8FF;      /* підсвічування */
-  --border-color: #C9C9E0;      /* рамки */
-}
-
-/* ===  ТЕМНА ТЕМА === */
-body.dark {
-  --bg-color: #290E56;          /* темно-синій фон */
-  --text-color: #F0E6FF;        /* світлий текст */
-  --card-bg: #3E1077;           /* фіолетові картки */
-  --accent-color: #6B48B8;      /* насичена лаванда для кнопок */
-  --accent-hover: #8B83D8;      /* блакитно-лавандовий hover */
-  --border-color: #532C97;      /* темно-лавандова рамка */
-
-}
-:root {
-  --accent-color: #a78bfa;     /* лаванда */
-  --circle-bg: #e0e0e0;        /* фон кола у світлій темі */
+  --bg-color: #E6E6FA;
+  --text-color: #2E2E3A;
+  --card-bg: #FFFFFF;
+  --accent-color: #a78bfa;
+  --accent-hover: #A5D8FF;
+  --border-color: #C9C9E0;
+  --circle-bg: #e0e0e0;
 }
 
 body.dark {
-  --accent-color: #8b5cf6;     /* темніший фіолетовий */
-  --circle-bg: #3a2b5f;        /* фон кола у темній темі */
+  --bg-color: #290E56;
+  --text-color: #F0E6FF;
+  --card-bg: #3E1077;
+  --accent-color: #8b5cf6;
+  --accent-hover: #8B83D8;
+  --border-color: #532C97;
+  --circle-bg: #3a2b5f;
 }
-body.dark #homeSection h2 {
-  color: #ffffff; /* робимо фразу “Вітаю тебе...” білою */
-}
-/* ===  ГЛОБАЛЬНІ СТИЛІ === */
+
+/* ===  ОСНОВНІ СТИЛІ === */
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   background: var(--bg-color);
@@ -41,7 +30,7 @@ body {
   transition: background 0.4s ease, color 0.4s ease;
 }
 
-/* ===  ЗАГОЛОВОК === */
+/* Фонове зображення */
 h1 {
   text-align: center;
   background-color: var(--accent-color);
@@ -49,10 +38,23 @@ h1 {
   padding: 20px 0;
   margin: 0;
   font-weight: 600;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* === НАВІГАЦІЯ === */
+h2 {
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 6px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+body.dark h2 {
+  color: #fff;
+  border-bottom-color: #8b5cf6;
+}
+
+/* ===  НАВІГАЦІЯ === */
 nav {
   display: flex;
   justify-content: center;
@@ -78,19 +80,18 @@ nav button:hover {
   transform: scale(1.05);
 }
 
-/* ===  ОСНОВНИЙ КОНТЕЙНЕР === */
+/* ===  КОНТЕЙНЕР === */
 main {
   max-width: 850px;
   margin: 30px auto;
   padding: 25px;
   background: var(--card-bg);
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--border-color);
-  transition: background-color 0.4s ease;
 }
 
-/* ===  ФОРМА ДОДАВАННЯ ЗВИЧКИ === */
+/* ===  ФОРМА === */
 form {
   display: flex;
   flex-direction: column;
@@ -114,7 +115,6 @@ input:focus, textarea:focus, select:focus {
   box-shadow: 0 0 5px var(--accent-color);
 }
 
-/* Для темної теми */
 body.dark input,
 body.dark textarea,
 body.dark select {
@@ -124,20 +124,61 @@ body.dark select {
 }
 
 /* ===  КНОПКИ === */
-button[type="submit"] {
+button, .btn {
   background-color: var(--accent-color);
   color: white;
   border: none;
-  padding: 12px;
+  padding: 10px 16px;
   border-radius: 8px;
-  font-size: 15px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease;
+  font-size: 15px;
 }
 
-button[type="submit"]:hover {
+button:hover, .btn:hover {
   background-color: var(--accent-hover);
+  transform: scale(1.05);
 }
+
+/* ===  ПЕРЕМИКАЧ ТЕМИ === */
+#theme-toggle {
+  margin-left: 10px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#theme-toggle.sun {
+  background-color: #FFD86F;
+  color: #000;
+}
+
+#theme-toggle.moon {
+  background-color: #B49DE1;
+  color: #fff;
+}
+
+#theme-toggle.rotate {
+  transform: rotate(360deg);
+}
+
+/* ===  СЕКЦІЇ === */
+section {
+  display: none;
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+section.active { display: block; }
 
 /* ===  ТАБЛИЦЯ === */
 table {
@@ -145,89 +186,19 @@ table {
   border-collapse: collapse;
   margin-top: 15px;
 }
-
 th, td {
   border-bottom: 1px solid var(--border-color);
   padding: 12px;
   text-align: left;
-  transition: background-color 0.3s ease;
 }
-
 th {
   background-color: var(--accent-color);
   color: white;
-  font-weight: 500;
 }
+tr:nth-child(even) { background-color: #f7f5ff; }
+body.dark tr:nth-child(even) { background-color: #3c1a69; }
 
-tr:nth-child(even) {
-  background-color: #f7f5ff;
-}
-
-body.dark tr:nth-child(even) {
-  background-color: #3c1a69;
-}
-
-/* ===  СЕКЦІЇ === */
-#add-habit, #habit-list {
-  margin-bottom: 40px;
-}
-
-h2 {
-  color: var(--accent-color);
-  border-bottom: 2px solid var(--accent-color);
-  padding-bottom: 6px;
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-section {
-  transition: opacity 0.3s ease, background-color 0.4s ease;
-  background-color: var(--card-bg);
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 25px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-}
-/* ===  Кнопка перемикання теми === */
-#theme-toggle {
-  margin-left: 10px;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  transition: transform 0.4s ease, background-color 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Стан сонця */
-#theme-toggle.sun {
-  background-color: #FFD86F;
-  color: #000;
-}
-
-/* Стан місяця */
-#theme-toggle.moon {
-  background-color: #B49DE1;
-  color: #fff;
-}
-
-/* Ефект обертання */
-#theme-toggle.rotate {
-  transform: rotate(360deg);
-}
- /* ===  Ховаємо всі секції, окрім активної === */
-section {
-  display: none;
-}
-
-section.active {
-  display: block;
-}
-/* ===  Кнопки редагування та видалення === */
+/* ===  КНОПКИ У ТАБЛИЦІ === */
 .edit-btn, .delete-btn {
   border: none;
   border-radius: 8px;
@@ -235,89 +206,20 @@ section.active {
   margin: 0 3px;
   cursor: pointer;
   font-size: 16px;
-  transition: all 0.25s ease;
-  background-color: var(--accent-color);
+  transition: 0.25s ease;
   color: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
+.edit-btn { background-color: var(--accent-color); }
+.delete-btn { background-color: #e45b78; }
+.delete-btn:hover { background-color: #ff6b8a; transform: scale(1.1); }
 
-/* Редагувати */
-.edit-btn:hover {
-  background-color: #a47ee6;
-  transform: scale(1.1);
-}
-
-/* Видалити */
-.delete-btn {
-  background-color: #e45b78;
-}
-
-.delete-btn:hover {
-  background-color: #ff6b8a;
-  transform: scale(1.1);
-}
-
-/* Для темної теми */
-body.dark .edit-btn, 
-body.dark .delete-btn {
-  box-shadow: 0 2px 8px rgba(255,255,255,0.15);
-}
-
-/* ===  Прогрес-бар === */
-.progress-bar {
-  width: 100%;
-  height: 20px;
-  background-color: #ddd;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 10px;
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #b49de1, #6b48b8);
-  border-radius: 10px;
-  transition: width 0.4s ease;
-}
-/*  Анімація появи повідомлення "Всі звички виконано!" */
-@keyframes popIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  60% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.success-message {
-  color: #32CD32;
-  font-weight: bold;
-  font-size: 18px;
-  text-shadow: 0 0 8px rgba(50,205,50,0.6);
-  margin-top: 12px;
-  letter-spacing: 0.6px;
-  animation: popIn 0.8s ease forwards;
-}
-#statsChart {
-  display: block;
-  margin: 0 auto;
-  transition: all 0.6s ease;
-}
-/* ===  КРУГОВА ДІАГРАМА === */
+/* ===  СТАТИСТИКА === */
 .progress-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 25px 0;
 }
-
 .circle-progress {
   width: 130px;
   height: 130px;
@@ -327,79 +229,53 @@ body.dark .delete-btn {
   align-items: center;
   justify-content: center;
   position: relative;
-  box-shadow: 0 0 15px rgba(0,0,0,0.15);
-  transition: background 1.2s ease-in-out;
+  transition: background 1s ease-in-out;
   animation: pulse 2.5s infinite ease-in-out;
 }
-
-/* Ефект “дихання” */
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 15px rgba(155, 135, 255, 0.5);
-  }
-  50% {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(180, 157, 225, 0.8);
-  }
-}
-
 .circle-progress span {
   position: absolute;
   font-size: 22px;
   font-weight: bold;
   color: var(--text-color);
+  transition: color 0.4s ease;
 }
-
-#progressSummary {
-  text-align: center;
-  font-size: 16px;
-  margin-top: 10px;
+body.dark .circle-progress span {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
-
+@keyframes pulse {
+  0%,100% { transform: scale(1); box-shadow: 0 0 15px rgba(155,135,255,0.5); }
+  50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(180,157,225,0.8); }
+}
 .success-message {
   color: #32CD32;
   font-weight: bold;
   text-align: center;
-  margin-top: 10px;
   font-size: 18px;
+  margin-top: 10px;
   animation: popIn 0.8s ease;
 }
-
 @keyframes popIn {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
-.clear-btn {
-  background-color: #ff6f91;
-  color: #fff;
-  border: none;
-  padding: 10px 16px;
+
+/* ===  БЕЙДЖІ === */
+.badge {
+  padding: 4px 8px;
   border-radius: 8px;
-  font-size: 15px;
-  cursor: pointer;
-  margin-top: 15px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: white;
 }
+.badge-робота { background: #6c63ff; }
+.badge-здоров’я { background: #3ddc84; }
+.badge-навчання { background: #4a90e2; }
+.badge-розвиток { background: #f39c12; }
+.badge-інше { background: #9b59b6; }
+.badge-none { background: #ccc; }
 
-.clear-btn:hover {
-  background-color: #ff4d6d;
-  transform: scale(1.05);
-}
-
-/* Темна тема */
-body.dark .clear-btn {
-  background-color: #d84a6f;
-}
-body.dark .clear-btn:hover {
-  background-color: #ff6b8a;
-}
+/* ===  ФІЛЬТРИ === */
 .filter-buttons {
   display: flex;
   gap: 10px;
@@ -413,7 +289,7 @@ body.dark .clear-btn:hover {
   padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: 0.3s ease;
 }
 
 .filter:hover {
@@ -426,48 +302,7 @@ body.dark .clear-btn:hover {
   box-shadow: 0 0 6px rgba(0,0,0,0.2);
 }
 
-.streak-bounce {
-  animation: bounce 0.6s ease;
-}
-
-@keyframes bounce {
-  0% { transform: scale(1); }
-  30% { transform: scale(1.3); }
-  60% { transform: scale(0.9); }
-  100% { transform: scale(1); }
-}
-.badge {
-  padding: 4px 8px;
-  border-radius: 8px;
-  font-size: 0.9em;
-  font-weight: 600;
-  color: white;
-}
-
-.badge-робота {
-  background-color: #6c63ff;
-}
-
-.badge-здоров’я {
-  background-color: #3ddc84;
-}
-
-.badge-навчання {
-  background-color: #4a90e2;
-}
-
-.badge-розвиток {
-  background-color: #f39c12;
-}
-
-.badge-інше {
-  background-color: #9b59b6;
-}
-
-.badge-none {
-  background-color: #ccc;
-}
-/* === 📅 Календар звичок === */
+/* ===  КАЛЕНДАР === */
 .calendar-controls {
   display: flex;
   justify-content: center;
@@ -479,7 +314,6 @@ body.dark .clear-btn:hover {
 #monthLabel {
   font-weight: bold;
   font-size: 18px;
-  color: var(--text-color);
 }
 
 .calendar-grid {
@@ -494,7 +328,7 @@ body.dark .clear-btn:hover {
   border-radius: 8px;
   background: var(--card-bg);
   color: var(--text-color);
-  transition: 0.2s ease;
+  transition: 0.2s;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
@@ -504,16 +338,10 @@ body.dark .clear-btn:hover {
   font-weight: 600;
 }
 
-.day.today {
-  border: 2px solid var(--accent-color);
-}
+.day.today { border: 2px solid var(--accent-color); }
+.day:hover { transform: scale(1.05); cursor: pointer; }
 
-.day:hover {
-  transform: scale(1.05);
-  cursor: pointer;
-}
-
-/* 🟣 Спливаючі повідомлення (toast) */
+/* ===  TOAST === */
 #toast-container {
   position: fixed;
   bottom: 20px;
@@ -537,11 +365,132 @@ body.dark .clear-btn:hover {
 
 @keyframes fadeInOut {
   0% { opacity: 0; transform: translateY(20px); }
-  10%, 90% { opacity: 1; transform: translateY(0); }
+  10%,90% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(20px); }
 }
 
+/* ===  ІНТЕРАКТИВНИЙ ТУТОРІАЛ === */
+.tutorial {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+}
 
+.tutorial.hidden {
+  display: none;
+}
 
+.tutorial__card {
+  position: relative;
+  width: min(600px, 90vw);
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 1.5rem 1.25rem 1rem;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.5s ease;
+}
 
+/* Прогрес-точки зверху */
+.tutorial__progress {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
 
+.tutorial__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-color);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.tutorial__dot.is-active {
+  background: var(--accent-color);
+  opacity: 1;
+  width: 26px;
+  border-radius: 10px;
+}
+
+/* Заголовок */
+.tutorial__title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 4px;
+}
+
+/* Текст */
+.tutorial__text {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* === КНОПКИ === */
+.tutorial__actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1.2rem;
+}
+
+/* Стиль кнопок */
+.tutorial__actions .btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.tutorial__actions .btn:hover {
+  background: var(--accent-hover);
+  transform: scale(1.05);
+}
+
+.tutorial__actions .btn--ghost {
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
+}
+
+/* Чекбокс */
+.tutorial__checkbox {
+  margin-top: 0.9rem;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+/* Анімація появи */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Центрування туторіалу */
+.tutorial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

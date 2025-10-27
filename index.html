@@ -20,7 +20,7 @@
   </header>
 
   <main>
-    <!-- 🏠 ГОЛОВНА -->
+    <!--  ГОЛОВНА -->
     <section id="homeSection" class="active">
       <h2>Вітаю тебе у трекері звичок!</h2>
       <p>
@@ -29,13 +29,13 @@
         Додавай нові цілі, позначай виконані завдання і спостерігай,
         як зростає твій прогрес! 💪
       </p>
+      <button id="helpBtn" class="help-btn">❔ Як користуватись</button>
     </section>
 
-    <!-- ➕ ДОДАТИ ЗВИЧКУ -->
+    <!--  ДОДАТИ ЗВИЧКУ -->
     <section id="add-habit">
       <h2>Додати нову звичку</h2>
 
-      <!-- Індикатор редагування -->
       <p id="edit-indicator" style="display:none; color:#b86bff; font-weight:600;">
         ✏️ Режим редагування: <span id="edit-name"></span>
       </p>
@@ -63,7 +63,6 @@
           <option value="Інше">✨ Інше</option>
         </select>
 
-        <!-- 🆕 Поле нагадування -->
         <label for="habit-reminder">Нагадування:</label>
         <input type="time" id="habit-reminder">
         <small>Оберіть час, коли ви хочете отримувати нагадування ⏰</small>
@@ -72,17 +71,15 @@
       </form>
     </section>
 
-    <!-- 📋 СПИСОК ЗВИЧОК -->
+    <!--  СПИСОК ЗВИЧОК -->
     <section id="habit-list">
       <h2>Мої звички</h2>
 
-      <!-- Фільтри -->
       <div class="filter-buttons">
         <button id="filterAll" class="filter active">Усі</button>
         <button id="filterDone" class="filter">Виконані ✅</button>
         <button id="filterNotDone" class="filter">Невиконані ❌</button>
 
-        <!-- Селект категорій -->
         <select id="categoryFilter" class="category-filter">
           <option value="all">Усі категорії</option>
           <option value="Здоров’я">💪 Здоров’я</option>
@@ -106,15 +103,13 @@
             <th>Дії</th>
           </tr>
         </thead>
-        <tbody id="habit-table-body">
-          <!-- рядки додає JavaScript -->
-        </tbody>
+        <tbody id="habit-table-body"></tbody>
       </table>
 
       <button id="clearAllBtn" class="clear-btn">🧹 Очистити всі звички</button>
     </section>
 
-    <!-- 📈 СТАТИСТИКА -->
+    <!--  СТАТИСТИКА -->
     <section id="statsSection">
       <h2>Статистика</h2>
       <p>Тут буде твій прогрес 📊</p>
@@ -128,7 +123,7 @@
       </div>
     </section>
 
-    <!-- 📅 КАЛЕНДАР -->
+    <!--  КАЛЕНДАР -->
     <section id="calendarSection">
       <h2>Мій календар звичок</h2>
       <div class="calendar-controls">
@@ -140,10 +135,28 @@
     </section>
   </main>
 
-  <script src="script.js"></script>
-  
-  <!-- 🟣 Контейнер для повідомлень -->
-<div id="toast-container"></div>
+  <!--  Контейнер для повідомлень -->
+  <div id="toast-container"></div>
 
+  <!--  Контейнер інтерактивного туторіалу -->
+  <div id="tutorial-overlay" class="tutorial hidden" aria-hidden="true">
+    <div class="tutorial__backdrop"></div>
+    <div class="tutorial__card" role="dialog" aria-modal="true">
+      <div class="tutorial__progress" id="tutorial-progress"></div>
+      <h2 id="tutorial-title" class="tutorial__title"></h2>
+      <p id="tutorial-text" class="tutorial__text"></p>
+      <div class="tutorial__actions">
+        <button id="tutorial-skip" class="btn btn--ghost">Пропустити</button>
+        <div class="tutorial__spacer"></div>
+        <button id="tutorial-prev" class="btn btn--ghost">Назад</button>
+        <button id="tutorial-next" class="btn">Далі</button>
+      </div>
+      <label class="tutorial__checkbox">
+        <input type="checkbox" id="tutorial-dont-show"> Більше не показувати
+      </label>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-// === 🌙 Тема ===
+// ===  Тема ===
 const themeToggle = document.getElementById("theme-toggle");
 
 const animateThemeChange = () => {
@@ -30,14 +30,15 @@ themeToggle.addEventListener("click", () => {
     themeToggle.classList.replace("sun", "moon");
     localStorage.setItem("theme", "light");
   }
+    updateStats();
 });
 
-// === 🧩 Звички ===
+// ===  Звички ===
 const habitForm = document.getElementById("habit-form");
 const habitTableBody = document.getElementById("habit-table-body");
 let habits = JSON.parse(localStorage.getItem("habits")) || [];
 
-// === 📈 Оновлення статистики ===
+// ===  Оновлення статистики ===
 function updateStats() {
   const total = habits.length;
   const done = habits.filter((h) => h.done).length;
@@ -48,10 +49,17 @@ function updateStats() {
   const summary = document.getElementById("progressSummary");
   const progressContainer = document.getElementById("progressContainer");
 
-  if (circle)
-    circle.style.background = `conic-gradient(var(--accent-color) ${
-      percent * 3.6
-    }deg, var(--circle-bg) ${percent * 3.6}deg)`;
+    if (circle) {
+  // Отримуємо кольори з CSS
+  const styles = getComputedStyle(document.body);
+  const accentColor = styles.getPropertyValue("--accent-color").trim();
+  const circleBg = styles.getPropertyValue("--circle-bg").trim();
+
+  // Формуємо градієнт 
+  circle.style.background = `conic-gradient(${accentColor} ${
+    percent * 3.6
+  }deg, ${circleBg} ${percent * 3.6}deg)`;
+}
 
   if (text) text.textContent = `${percent}%`;
   if (summary)
@@ -69,7 +77,7 @@ function updateStats() {
   }
 }
 
-// === 🎉 Конфетті ===
+// ===  Конфетті ===
 function launchConfetti() {
   const colors = ["#A28CF2", "#B8E986", "#FFD86F", "#FF6F91", "#6B48B8"];
   for (let i = 0; i < 40; i++) {
@@ -95,7 +103,7 @@ function launchConfetti() {
   }
 }
 
-// === 📋 Рендер звичок ===
+// ===  Рендер звичок ===
 let currentFilter = "all";
 let currentCategory = "all";
 
@@ -132,7 +140,7 @@ function renderFilteredHabits() {
   updateStats();
 }
 
-// === 🧹 Очистити всі звички ===
+// ===  Очистити всі звички ===
 const clearAllBtn = document.getElementById("clearAllBtn");
 if (clearAllBtn) {
   clearAllBtn.addEventListener("click", () => {
@@ -150,7 +158,7 @@ if (clearAllBtn) {
   });
 }
 
-// === 🧠 Події ===
+// ===  Події ===
 function attachHabitEventListeners() {
   document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) =>
     checkbox.addEventListener("change", (e) => {
@@ -212,7 +220,7 @@ function attachHabitEventListeners() {
   );
 }
 
-// === 🔍 Фільтрація ===
+// ===  Фільтрація ===
 const filterAll = document.getElementById("filterAll");
 const filterDone = document.getElementById("filterDone");
 const filterNotDone = document.getElementById("filterNotDone");
@@ -240,7 +248,7 @@ if (categoryFilter) {
   });
 });
 
-// === ➕ Додавання / редагування звички ===
+// ===  Додавання / редагування звички ===
 habitForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const name = document.getElementById("habit-name").value.trim();
@@ -285,7 +293,7 @@ habitForm.addEventListener("submit", (e) => {
   listSection.classList.add("active");
 });
 
-// === 🔔 НАГАДУВАННЯ ===
+// ===  НАГАДУВАННЯ ===
 if (Notification.permission !== "granted") {
   Notification.requestPermission();
 }
@@ -301,7 +309,6 @@ function checkReminders() {
   });
 }
 
-// === 🔔 Локальне нагадування через toast ===
 function showNotification(habit) {
   showToast(`⏰ Нагадування: не забудь — "${habit.name}"`);
 }
@@ -349,7 +356,7 @@ calendarBtn.addEventListener("click", () => {
   renderCalendar();
 });
 
-// === 📅 КАЛЕНДАР ===
+// ===  КАЛЕНДАР ===
 const prevMonthBtn = document.getElementById("prevMonth");
 const nextMonthBtn = document.getElementById("nextMonth");
 const monthLabel = document.getElementById("monthLabel");
@@ -404,7 +411,7 @@ nextMonthBtn.addEventListener("click", () => {
   renderCalendar();
 });
 
-// === 🔔 Локальне візуальне нагадування ===
+// ===  Локальне візуальне нагадування ===
 function showToast(message) {
   const container = document.getElementById("toast-container");
   const toast = document.createElement("div");
@@ -412,16 +419,113 @@ function showToast(message) {
   toast.textContent = message;
   container.appendChild(toast);
 
-  // автоматично зникає через 3,5 секунди
-  setTimeout(() => {
-    toast.remove();
-  }, 6000);
+  setTimeout(() => toast.remove(), 6000);
 }
 
-// === 🚀 Старт ===
+// ===  Старт ===
 document.addEventListener("DOMContentLoaded", () => {
   renderFilteredHabits();
   updateStats();
   hideAllSections();
   homeSection.classList.add("active");
+  renderCalendar();
+  initTutorial(); // запуск туторіалу
 });
+
+/* =====================  ІНТЕРАКТИВНИЙ ТУТОРІАЛ ===================== */
+function initTutorial() {
+  const overlay = document.getElementById("tutorial-overlay");
+  const title = document.getElementById("tutorial-title");
+  const text = document.getElementById("tutorial-text");
+  const nextBtn = document.getElementById("tutorial-next");
+  const prevBtn = document.getElementById("tutorial-prev");
+  const skipBtn = document.getElementById("tutorial-skip");
+  const progress = document.getElementById("tutorial-progress");
+  const dontShow = document.getElementById("tutorial-dont-show");
+  const helpBtn = document.getElementById("helpBtn");
+  const KEY = "habitTutorialSeen";
+
+  const steps = [
+    { title: "Ласкаво просимо 💜", text: "Це Habit Tracker — твій помічник у формуванні звичок!", selector: "#homeSection" },
+    { title: "Додай звичку", text: "Тут ти можеш створювати нові звички та ставити нагадування.", selector: "#add-habit" },
+    { title: "Список звичок", text: "Відмічай виконані звички, редагуй і видаляй їх тут.", selector: "#habit-list" },
+    { title: "Статистика", text: "Переглядай відсоток виконання і мотивуй себе 💪", selector: "#statsSection" },
+    { title: "Календар", text: "Бач свій прогрес по днях 📅", selector: "#calendarSection" },
+    { title: "Тема", text: "Перемикай світлу/темну тему 🌙☀️", selector: "#theme-toggle" },
+    { title: "Готово!", text: "Тепер ти знаєш усе 😊 Натисни 'Почати', щоб користуватись додатком!", selector: null },
+  ];
+
+  let i = 0;
+  let highlighted = null;
+
+  function showTutorial(force = false) {
+    if (!force && localStorage.getItem(KEY) === "true") return;
+    overlay.classList.remove("hidden");
+    renderStep();
+  }
+
+  function hideTutorial(save = true) {
+    overlay.classList.add("hidden");
+    clearHighlight();
+    if (save || dontShow.checked) localStorage.setItem(KEY, "true");
+  }
+
+  function highlight(selector) {
+    clearHighlight();
+    if (!selector) return;
+    const el = document.querySelector(selector);
+    if (el) {
+      el.classList.add("pulse-highlight");
+      highlighted = el;
+    }
+  }
+
+  function clearHighlight() {
+    if (highlighted) {
+      highlighted.classList.remove("pulse-highlight");
+      highlighted = null;
+    }
+  }
+
+  function renderStep() {
+    const step = steps[i];
+    title.textContent = step.title;
+    text.textContent = step.text;
+    highlight(step.selector);
+
+    prevBtn.disabled = i === 0;
+    nextBtn.textContent = i === steps.length - 1 ? "Почати" : "Далі";
+
+    progress.innerHTML = steps
+      .map(
+        (_, idx) =>
+          `<span class="tutorial__dot ${idx === i ? "is-active" : ""}"></span>`
+      )
+      .join("");
+  }
+
+  nextBtn.onclick = () => {
+    if (i < steps.length - 1) {
+      i++;
+      renderStep();
+    } else hideTutorial();
+  };
+
+  prevBtn.onclick = () => {
+    if (i > 0) {
+      i--;
+      renderStep();
+    }
+  };
+
+  skipBtn.onclick = () => hideTutorial(false);
+  overlay.onclick = (e) => {
+    if (e.target === overlay) hideTutorial(false);
+  };
+
+  if (helpBtn) helpBtn.addEventListener("click", () => showTutorial(true));
+
+  window.addEventListener("DOMContentLoaded", () => {
+    if (!localStorage.getItem(KEY)) showTutorial();
+  });
+}
