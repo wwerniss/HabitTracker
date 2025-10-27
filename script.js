@@ -30,7 +30,7 @@ themeToggle.addEventListener("click", () => {
     themeToggle.classList.replace("sun", "moon");
     localStorage.setItem("theme", "light");
   }
-    updateStats();
+  updateStats();
 });
 
 // ===  Звички ===
@@ -49,17 +49,14 @@ function updateStats() {
   const summary = document.getElementById("progressSummary");
   const progressContainer = document.getElementById("progressContainer");
 
-    if (circle) {
-  // Отримуємо кольори з CSS
-  const styles = getComputedStyle(document.body);
-  const accentColor = styles.getPropertyValue("--accent-color").trim();
-  const circleBg = styles.getPropertyValue("--circle-bg").trim();
-
-  // Формуємо градієнт 
-  circle.style.background = `conic-gradient(${accentColor} ${
-    percent * 3.6
-  }deg, ${circleBg} ${percent * 3.6}deg)`;
-}
+  if (circle) {
+    const styles = getComputedStyle(document.body);
+    const accentColor = styles.getPropertyValue("--accent-color").trim();
+    const circleBg = styles.getPropertyValue("--circle-bg").trim();
+    circle.style.background = `conic-gradient(${accentColor} ${
+      percent * 3.6
+    }deg, ${circleBg} ${percent * 3.6}deg)`;
+  }
 
   if (text) text.textContent = `${percent}%`;
   if (summary)
@@ -418,7 +415,6 @@ function showToast(message) {
   toast.classList.add("toast");
   toast.textContent = message;
   container.appendChild(toast);
-
   setTimeout(() => toast.remove(), 6000);
 }
 
@@ -429,10 +425,10 @@ document.addEventListener("DOMContentLoaded", () => {
   hideAllSections();
   homeSection.classList.add("active");
   renderCalendar();
-  initTutorial(); // запуск туторіалу
+  initTutorial();
 });
 
-/* =====================  ІНТЕРАКТИВНИЙ ТУТОРІАЛ ===================== */
+// ===  ІНТЕРАКТИВНИЙ ТУТОРІАЛ ===
 function initTutorial() {
   const overlay = document.getElementById("tutorial-overlay");
   const title = document.getElementById("tutorial-title");
@@ -529,3 +525,33 @@ function initTutorial() {
     if (!localStorage.getItem(KEY)) showTutorial();
   });
 }
+
+// ===  Привітальна анімація ===
+document.addEventListener("DOMContentLoaded", () => {
+  const greeting = document.getElementById("tutorialGreeting");
+  if (greeting) {
+    const animation = lottie.loadAnimation({
+      container: greeting,
+      renderer: "svg",
+      loop: true,
+      autoplay: false,
+      path: "animations/greetings.json",
+    });
+
+    const observer = new MutationObserver(() => {
+      const activeDot = document.querySelector(".tutorial__dot.is-active");
+      if (activeDot && activeDot === document.querySelector(".tutorial__dot:first-child")) {
+        greeting.style.opacity = "1";
+        animation.play();
+      } else {
+        greeting.style.opacity = "0";
+        animation.stop();
+      }
+    });
+
+    observer.observe(document.getElementById("tutorial-progress"), {
+      childList: true,
+      subtree: true,
+    });
+  }
+});

@@ -4,9 +4,12 @@
   <meta charset="UTF-8" />
   <title>Habit Tracker</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lottie-web@5.10.0/build/player/lottie.min.js"></script>
 </head>
 
 <body>
+  <!-- ===  ШАПКА ТА НАВІГАЦІЯ === -->
   <header>
     <h1>Habit Tracker</h1>
     <nav>
@@ -19,20 +22,38 @@
     </nav>
   </header>
 
+  <!-- ===  ОСНОВНИЙ КОНТЕНТ === -->
   <main>
-    <!--  ГОЛОВНА -->
+
+    <!-- ===  ГОЛОВНА СТОРІНКА === -->
     <section id="homeSection" class="active">
       <h2>Вітаю тебе у трекері звичок!</h2>
       <p>
-        "Habit Tracker" — це простий вебдодаток, який допоможе тобі створювати,
+        "Habit Tracker" — це простий вебдодаток, який допоможе створювати,
         відстежувати та підтримувати свої щоденні звички. <br>
         Додавай нові цілі, позначай виконані завдання і спостерігай,
         як зростає твій прогрес! 💪
+        <span class="subtitle">Кожен день — ще один крок до кращої версії себе 💫</span>
       </p>
+
+      <div id="animationContainer" style="width:300px; height:300px; margin:auto;"></div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          lottie.loadAnimation({
+            container: document.getElementById("animationContainer"),
+            renderer: "svg",
+            loop: true,
+            autoplay: true,
+            path: "animations/using mobile phone.json"
+          });
+        });
+      </script>
+
       <button id="helpBtn" class="help-btn">❔ Як користуватись</button>
     </section>
 
-    <!--  ДОДАТИ ЗВИЧКУ -->
+    <!-- ===  ДОДАВАННЯ ЗВИЧКИ === -->
     <section id="add-habit">
       <h2>Додати нову звичку</h2>
 
@@ -71,7 +92,7 @@
       </form>
     </section>
 
-    <!--  СПИСОК ЗВИЧОК -->
+    <!-- ===  СПИСОК ЗВИЧОК === -->
     <section id="habit-list">
       <h2>Мої звички</h2>
 
@@ -109,10 +130,9 @@
       <button id="clearAllBtn" class="clear-btn">🧹 Очистити всі звички</button>
     </section>
 
-    <!--  СТАТИСТИКА -->
+    <!-- ===  СТАТИСТИКА === -->
     <section id="statsSection">
       <h2>Статистика</h2>
-      <p>Тут буде твій прогрес 📊</p>
       <div id="progressContainer">
         <div class="progress-wrapper">
           <div class="circle-progress">
@@ -123,7 +143,7 @@
       </div>
     </section>
 
-    <!--  КАЛЕНДАР -->
+    <!-- ===  КАЛЕНДАР === -->
     <section id="calendarSection">
       <h2>Мій календар звичок</h2>
       <div class="calendar-controls">
@@ -135,19 +155,18 @@
     </section>
   </main>
 
-  <!--  Контейнер для повідомлень -->
+  <!-- ===  СПОВІЩЕННЯ (TOAST) === -->
   <div id="toast-container"></div>
 
-  <!--  Контейнер інтерактивного туторіалу -->
+  <!-- ===  ІНТЕРАКТИВНИЙ ТУТОРІАЛ === -->
   <div id="tutorial-overlay" class="tutorial hidden" aria-hidden="true">
-    <div class="tutorial__backdrop"></div>
     <div class="tutorial__card" role="dialog" aria-modal="true">
+      <div id="tutorialGreeting"></div>
       <div class="tutorial__progress" id="tutorial-progress"></div>
       <h2 id="tutorial-title" class="tutorial__title"></h2>
       <p id="tutorial-text" class="tutorial__text"></p>
       <div class="tutorial__actions">
         <button id="tutorial-skip" class="btn btn--ghost">Пропустити</button>
-        <div class="tutorial__spacer"></div>
         <button id="tutorial-prev" class="btn btn--ghost">Назад</button>
         <button id="tutorial-next" class="btn">Далі</button>
       </div>
@@ -157,6 +176,7 @@
     </div>
   </div>
 
+  <!-- ===  СКРИПТ === -->
   <script src="script.js"></script>
 </body>
 </html>

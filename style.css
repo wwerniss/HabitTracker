@@ -30,7 +30,6 @@ body {
   transition: background 0.4s ease, color 0.4s ease;
 }
 
-/* Фонове зображення */
 h1 {
   text-align: center;
   background-color: var(--accent-color);
@@ -166,6 +165,7 @@ button:hover, .btn:hover {
 
 #theme-toggle.rotate {
   transform: rotate(360deg);
+  transition: transform 0.4s ease;
 }
 
 /* ===  СЕКЦІЇ === */
@@ -178,7 +178,10 @@ section {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   transition: 0.3s ease;
 }
-section.active { display: block; }
+
+section.active {
+  display: block;
+}
 
 /* ===  ТАБЛИЦЯ === */
 table {
@@ -186,17 +189,25 @@ table {
   border-collapse: collapse;
   margin-top: 15px;
 }
+
 th, td {
   border-bottom: 1px solid var(--border-color);
   padding: 12px;
   text-align: left;
 }
+
 th {
   background-color: var(--accent-color);
   color: white;
 }
-tr:nth-child(even) { background-color: #f7f5ff; }
-body.dark tr:nth-child(even) { background-color: #3c1a69; }
+
+tr:nth-child(even) {
+  background-color: #f7f5ff;
+}
+
+body.dark tr:nth-child(even) {
+  background-color: #3c1a69;
+}
 
 /* ===  КНОПКИ У ТАБЛИЦІ === */
 .edit-btn, .delete-btn {
@@ -209,9 +220,19 @@ body.dark tr:nth-child(even) { background-color: #3c1a69; }
   transition: 0.25s ease;
   color: #fff;
 }
-.edit-btn { background-color: var(--accent-color); }
-.delete-btn { background-color: #e45b78; }
-.delete-btn:hover { background-color: #ff6b8a; transform: scale(1.1); }
+
+.edit-btn {
+  background-color: var(--accent-color);
+}
+
+.delete-btn {
+  background-color: #e45b78;
+}
+
+.delete-btn:hover {
+  background-color: #ff6b8a;
+  transform: scale(1.1);
+}
 
 /* ===  СТАТИСТИКА === */
 .progress-wrapper {
@@ -220,6 +241,7 @@ body.dark tr:nth-child(even) { background-color: #3c1a69; }
   align-items: center;
   margin: 25px 0;
 }
+
 .circle-progress {
   width: 130px;
   height: 130px;
@@ -232,6 +254,7 @@ body.dark tr:nth-child(even) { background-color: #3c1a69; }
   transition: background 1s ease-in-out;
   animation: pulse 2.5s infinite ease-in-out;
 }
+
 .circle-progress span {
   position: absolute;
   font-size: 22px;
@@ -239,14 +262,23 @@ body.dark tr:nth-child(even) { background-color: #3c1a69; }
   color: var(--text-color);
   transition: color 0.4s ease;
 }
+
 body.dark .circle-progress span {
   color: #fff;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
+
 @keyframes pulse {
-  0%,100% { transform: scale(1); box-shadow: 0 0 15px rgba(155,135,255,0.5); }
-  50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(180,157,225,0.8); }
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(155,135,255,0.5);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(180,157,225,0.8);
+  }
 }
+
 .success-message {
   color: #32CD32;
   font-weight: bold;
@@ -255,6 +287,7 @@ body.dark .circle-progress span {
   margin-top: 10px;
   animation: popIn 0.8s ease;
 }
+
 @keyframes popIn {
   from { transform: scale(0.8); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
@@ -268,6 +301,7 @@ body.dark .circle-progress span {
   font-weight: 600;
   color: white;
 }
+
 .badge-робота { background: #6c63ff; }
 .badge-здоров’я { background: #3ddc84; }
 .badge-навчання { background: #4a90e2; }
@@ -338,8 +372,14 @@ body.dark .circle-progress span {
   font-weight: 600;
 }
 
-.day.today { border: 2px solid var(--accent-color); }
-.day:hover { transform: scale(1.05); cursor: pointer; }
+.day.today {
+  border: 2px solid var(--accent-color);
+}
+
+.day:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
 
 /* ===  TOAST === */
 #toast-container {
@@ -365,7 +405,7 @@ body.dark .circle-progress span {
 
 @keyframes fadeInOut {
   0% { opacity: 0; transform: translateY(20px); }
-  10%,90% { opacity: 1; transform: translateY(0); }
+  10%, 90% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(20px); }
 }
 
@@ -395,7 +435,6 @@ body.dark .circle-progress span {
   animation: fadeIn 0.5s ease;
 }
 
-/* Прогрес-точки зверху */
 .tutorial__progress {
   display: flex;
   justify-content: center;
@@ -419,7 +458,6 @@ body.dark .circle-progress span {
   border-radius: 10px;
 }
 
-/* Заголовок */
 .tutorial__title {
   font-size: 1.2rem;
   font-weight: 600;
@@ -429,7 +467,6 @@ body.dark .circle-progress span {
   padding-bottom: 4px;
 }
 
-/* Текст */
 .tutorial__text {
   font-size: 0.95rem;
   margin-bottom: 1rem;
@@ -437,7 +474,6 @@ body.dark .circle-progress span {
   line-height: 1.6;
 }
 
-/* === КНОПКИ === */
 .tutorial__actions {
   display: flex;
   justify-content: center;
@@ -446,7 +482,6 @@ body.dark .circle-progress span {
   margin-top: 1.2rem;
 }
 
-/* Стиль кнопок */
 .tutorial__actions .btn {
   padding: 0.6rem 1.2rem;
   border-radius: 10px;
@@ -471,7 +506,6 @@ body.dark .circle-progress span {
   border: none;
 }
 
-/* Чекбокс */
 .tutorial__checkbox {
   margin-top: 0.9rem;
   font-size: 0.9rem;
@@ -482,15 +516,74 @@ body.dark .circle-progress span {
   justify-content: center;
 }
 
-/* Анімація появи */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Центрування туторіалу */
-.tutorial {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* ===  Анімація чоловічка === */
+#homeSection {
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+  padding-bottom: 80px;
+}
+
+.subtitle {
+  display: block;
+  font-style: italic;
+  color: #6b46c1;
+  font-weight: 600;
+  margin: 25px 0 50px 5px;
+  padding: 12px 14px;
+  border-left: 4px solid #a78bfa;
+  border-radius: 12px;
+  background: rgba(167, 139, 250, 0.07);
+  font-size: 16px;
+  text-align: left;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  animation: fadeInUp 1.2s ease;
+  max-width: 70%;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#animationContainer {
+  position: absolute;
+  bottom: -20px;
+  right: -50px;
+  width: 250px;
+  height: 250px;
+  opacity: 0.95;
+  pointer-events: none;
+  z-index: 1;
+  animation: fadeIn 1.5s ease;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: 3rem;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #a78bfa, #b794f4);
+  box-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+}
+
+#tutorialGreeting {
+  position: absolute;
+  top: -10px;
+  right: 25px;
+  width: 110px;
+  height: 110px;
+  z-index: 2;
+  opacity: 0.95;
+  pointer-events: none;
 }
